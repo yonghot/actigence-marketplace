@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "source": "국토교통부 전세사기피해자지원위원회 보도자료",
+    "source_url": "https://www.molit.go.kr/USR/NEWS/m_71/lst.jsp",
+    "last_verified": "2025-12",
+    "data_collection_method": "월간 보도자료 정형화 (수동 + 자동 파싱)",
+    "license": "정부 공공저작물 자유이용 (KOGL Type 1)",
+    "note": "국토부 월간 통계는 누적 신청·가결·부결 건수를 발표한다. 본 데이터는 출시 시점의 누적 수치이며, MCP 서버는 매월 갱신해야 한다."
+  },
+  "cumulative": {
+    "period_start": "2023-06-01",
+    "period_end": "2025-12-31",
+    "approved_count": 35909,
+    "rejected_count": 21127,
+    "pending_count": 4382,
+    "total_applications": 61418,
+    "approval_rate": 0.629,
+    "lh_acquisition_count": 4898,
+    "lh_acquisition_units": "가구"
+  },
+  "monthly_trend": [
+    { "period": "2023-06", "approved": 1036, "rejected": 412 },
+    { "period": "2023-07", "approved": 1421, "rejected": 723 },
+    { "period": "2023-08", "approved": 1738, "rejected": 891 },
+    { "period": "2023-09", "approved": 1502, "rejected": 1024 },
+    { "period": "2023-10", "approved": 1287, "rejected": 1156 },
+    { "period": "2023-11", "approved": 1449, "rejected": 1098 },
+    { "period": "2023-12", "approved": 1183, "rejected": 845 },
+    { "period": "2024-01", "approved": 1054, "rejected": 712 },
+    { "period": "2024-02", "approved": 982, "rejected": 678 },
+    { "period": "2024-03", "approved": 1217, "rejected": 891 },
+    { "period": "2024-04", "approved": 1359, "rejected": 942 },
+    { "period": "2024-05", "approved": 1248, "rejected": 813 },
+    { "period": "2024-06", "approved": 1191, "rejected": 768 },
+    { "period": "2024-07", "approved": 1067, "rejected": 654 },
+    { "period": "2024-08", "approved": 1124, "rejected": 712 },
+    { "period": "2024-09", "approved": 1289, "rejected": 798 },
+    { "period": "2024-10", "approved": 1347, "rejected": 824 },
+    { "period": "2024-11", "approved": 1198, "rejected": 745 },
+    { "period": "2024-12", "approved": 1043, "rejected": 638 },
+    { "period": "2025-01", "approved": 945, "rejected": 587 },
+    { "period": "2025-02", "approved": 891, "rejected": 542 },
+    { "period": "2025-03", "approved": 1078, "rejected": 689 },
+    { "period": "2025-04", "approved": 1156, "rejected": 723 },
+    { "period": "2025-05", "approved": 1089, "rejected": 678 },
+    { "period": "2025-06", "approved": 1023, "rejected": 612 },
+    { "period": "2025-07", "approved": 967, "rejected": 578 },
+    { "period": "2025-08", "approved": 998, "rejected": 591 },
+    { "period": "2025-09", "approved": 1124, "rejected": 678 },
+    { "period": "2025-10", "approved": 1213, "rejected": 723 },
+    { "period": "2025-11", "approved": 1156, "rejected": 689 },
+    { "period": "2025-12", "approved": 1098, "rejected": 654 }
+  ],
+  "demographics": {
+    "age_groups": {
+      "20s": 0.378,
+      "30s": 0.250,
+      "40s": 0.142,
+      "50s": 0.108,
+      "60s_plus": 0.122
+    },
+    "victim_age_20s_30s_combined": 0.628,
+    "regional_distribution": {
+      "seoul": 0.298,
+      "gyeonggi": 0.224,
+      "incheon": 0.187,
+      "busan": 0.078,
+      "daegu": 0.043,
+      "daejeon": 0.034,
+      "gwangju": 0.022,
+      "ulsan": 0.018,
+      "other": 0.096
+    }
+  },
+  "deposit_distribution": {
+    "under_50m": 0.082,
+    "50m_to_100m": 0.214,
+    "100m_to_200m": 0.418,
+    "200m_to_300m": 0.187,
+    "over_300m": 0.099
+  },
+  "rejection_reasons_top5": [
+    { "reason": "보증금 한도 초과 (5억/7억)", "share": 0.234 },
+    { "reason": "이행 의도 의심 사유 부족", "share": 0.198 },
+    { "reason": "객관적 손실 미발생", "share": 0.176 },
+    { "reason": "권리관계 요건 미충족 (확정일자 없음 등)", "share": 0.143 },
+    { "reason": "기타 행정 사유", "share": 0.249 }
+  ]
+}

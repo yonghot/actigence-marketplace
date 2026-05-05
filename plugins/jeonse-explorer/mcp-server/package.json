@@ -1,0 +1,51 @@
+{
+  "name": "@actigence/jeonse-explorer-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for ACTIGENCE Jeonse Explorer Plugin — 공개 판례·정부 통계 기반 분포 분석 백엔드",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "postinstall": "tsc",
+    "start": "node dist/index-stdio.js",
+    "start:http": "node dist/index.js",
+    "start:stdio": "node dist/index-stdio.js",
+    "dev": "tsx watch src/index-stdio.ts",
+    "dev:http": "tsx watch src/index.ts",
+    "test": "vitest run",
+    "lint": "eslint src --ext .ts",
+    "compliance-check": "node ../scripts/compliance-check.js"
+  },
+  "keywords": [
+    "mcp",
+    "jeonse",
+    "actigence",
+    "legal-data",
+    "korean"
+  ],
+  "author": "ACTIGENCE <cio@actigence.ai>",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.25.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

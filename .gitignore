@@ -1,0 +1,38 @@
+# Dependencies — never commit
+**/node_modules/
+
+# Build artifacts — committed for plugin install automation
+# (intentionally NOT ignored)
+# **/dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.production
+**/mcp-server/.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Vercel
+.vercel
+
+# Local override
+**/data/local-overrides/
+
+# Confidential (legal opinion full version)
+docs/private/

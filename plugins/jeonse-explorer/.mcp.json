@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "jeonse-explorer-backend": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/index-stdio.js"],
+      "env": {
+        "ENABLE_PII_GUARDRAIL": "true",
+        "NODE_ENV": "production"
+      },
+      "description": "전세사기 분포 분석 백엔드 (로컬 stdio 모드) — 외부 인프라 없이 동작",
+      "compliance_note": "본 서버는 가해자 식별 정보를 input에서 강제 차단하며, output에 면책 문구를 항상 포함합니다."
+    }
+  }
+}

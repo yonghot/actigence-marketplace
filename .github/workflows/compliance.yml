@@ -1,0 +1,107 @@
+name: Compliance & Build Check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  compliance-check:
+    name: Compliance Self-Check (변호사법 회피 7원칙)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run compliance self-check
+        run: node scripts/compliance-check.js
+
+      - name: Compliance summary
+        if: success()
+        run: |
+          echo "✅ 회피 7원칙 모든 검사 통과"
+          echo "변호사법 109조·34조 회피 설계 무결성 확인됨"
+
+  build-jeonse-explorer:
+    name: Build jeonse-explorer plugin (MCP server)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: plugins/jeonse-explorer/mcp-server/package-lock.json
+
+      - name: Install dependencies
+        working-directory: plugins/jeonse-explorer/mcp-server
+        run: npm install --no-audit --no-fund
+
+      - name: Type check
+        working-directory: plugins/jeonse-explorer/mcp-server
+        run: npx tsc --noEmit
+
+      - name: Build
+        working-directory: plugins/jeonse-explorer/mcp-server
+        run: npm run build
+
+      - name: Verify dist artifacts
+        working-directory: plugins/jeonse-explorer/mcp-server
+        run: |
+          test -f dist/index.js
+          test -f dist/index-stdio.js
+          test -f dist/distributions.js
+          test -f dist/guardrails.js
+          test -f dist/tools/analyze.js
+          test -f dist/tools/lawSummary.js
+          echo "✅ 모든 빌드 산출물 정상 생성"
+
+  smoke-test-mcp-server:
+    name: Smoke test MCP server (stdio mode)
+    runs-on: ubuntu-latest
+    needs: build-jeonse-explorer
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install + build
+        working-directory: plugins/jeonse-explorer/mcp-server
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
+
+      - name: list_tools smoke test
+        working-directory: plugins/jeonse-explorer/mcp-server
+        run: |
+          RESULT=$(echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | timeout 5 node dist/index-stdio.js 2>/dev/null | grep -o '"name":"analyze_jeonse_fraud_distribution"' | head -1)
+          if [ -z "$RESULT" ]; then
+            echo "❌ MCP 서버 list_tools 실패"
+            exit 1
+          fi
+          echo "✅ MCP 서버 list_tools 정상 응답"
+
+      - name: PII guardrail smoke test
+        working-directory: plugins/jeonse-explorer/mcp-server
+        run: |
+          PAYLOAD='{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"analyze_jeonse_fraud_distribution","arguments":{"deposit_range":"100m_to_300m","priority_right":"full_protection","landlord_property_count":"one","auction_status":"in_progress","investigation_status":"investigating","victim_count":"self_only","region":"seoul","landlord_phone":"010-1234-5678"}}}'
+          RESULT=$(echo "$PAYLOAD" | timeout 5 node dist/index-stdio.js 2>/dev/null | grep -o '"error":"pii_detected"')
+          if [ -z "$RESULT" ]; then
+            echo "❌ PII 가드레일 동작 실패 — 가해자 휴대폰 패턴이 차단되지 않음"
+            exit 1
+          fi
+          echo "✅ PII 가드레일 정상 동작 (가해자 식별 정보 input 차단됨)"

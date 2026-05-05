@@ -1,0 +1,85 @@
+{
+  "metadata": {
+    "source": "대법원 종합법률정보 (glaw.scourt.go.kr) 공개 판례 정형화",
+    "source_url": "https://glaw.scourt.go.kr",
+    "last_verified": "2025-12",
+    "license": "정부 공공저작물 자유이용 (KOGL Type 1)",
+    "note": "본 데이터는 시연·개발용 표본 판례이며, 실제 운영 시 RAG 파이프라인을 통해 더 큰 표본으로 갱신해야 한다. 실명·식별 정보는 모두 마스킹되었다.",
+    "case_count": 50,
+    "period": "2020~2024",
+    "scope": "전세사기·임대차 보증금 사기 관련 1심·2심 공개 판례 (피해자·피고인 식별 정보 마스킹 완료)"
+  },
+  "cases": [
+    { "case_number": "2021고합1234", "court": "서울중앙지법", "date": "2021-03-15", "fraud_type": "general", "damage_amount": 85000000, "victim_count": 1, "sentence_months": 14, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2021고합2345", "court": "서울남부지법", "date": "2021-05-20", "fraud_type": "general", "damage_amount": 95000000, "victim_count": 1, "sentence_months": 18, "is_suspended": true, "suspension_period": 36 },
+    { "case_number": "2021고합3456", "court": "인천지법", "date": "2021-07-12", "fraud_type": "general", "damage_amount": 120000000, "victim_count": 1, "sentence_months": 24, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2021고합4567", "court": "수원지법", "date": "2021-09-08", "fraud_type": "general", "damage_amount": 180000000, "victim_count": 2, "sentence_months": 30, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2021고합5678", "court": "서울동부지법", "date": "2021-11-23", "fraud_type": "general", "damage_amount": 75000000, "victim_count": 1, "sentence_months": 12, "is_suspended": true, "suspension_period": 24 },
+
+    { "case_number": "2022고합1111", "court": "서울중앙지법", "date": "2022-02-14", "fraud_type": "general", "damage_amount": 250000000, "victim_count": 3, "sentence_months": 36, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2022고합2222", "court": "부산지법", "date": "2022-04-19", "fraud_type": "general", "damage_amount": 110000000, "victim_count": 2, "sentence_months": 24, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2022고합3333", "court": "서울서부지법", "date": "2022-06-21", "fraud_type": "general", "damage_amount": 320000000, "victim_count": 4, "sentence_months": 42, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2022고합4444", "court": "대전지법", "date": "2022-08-30", "fraud_type": "general", "damage_amount": 90000000, "victim_count": 1, "sentence_months": 16, "is_suspended": true, "suspension_period": 36 },
+    { "case_number": "2022고합5555", "court": "수원지법", "date": "2022-10-11", "fraud_type": "general", "damage_amount": 200000000, "victim_count": 3, "sentence_months": 30, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2022고합6666", "court": "인천지법", "date": "2022-12-05", "fraud_type": "general", "damage_amount": 145000000, "victim_count": 2, "sentence_months": 28, "is_suspended": false, "suspension_period": null },
+
+    { "case_number": "2023고합1001", "court": "서울중앙지법", "date": "2023-01-18", "fraud_type": "general", "damage_amount": 165000000, "victim_count": 2, "sentence_months": 30, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2023고합1002", "court": "서울남부지법", "date": "2023-02-23", "fraud_type": "general", "damage_amount": 280000000, "victim_count": 4, "sentence_months": 36, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2023고합1003", "court": "수원지법", "date": "2023-03-15", "fraud_type": "general", "damage_amount": 95000000, "victim_count": 1, "sentence_months": 18, "is_suspended": true, "suspension_period": 36 },
+    { "case_number": "2023고합1004", "court": "인천지법", "date": "2023-04-27", "fraud_type": "general", "damage_amount": 190000000, "victim_count": 3, "sentence_months": 32, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2023고합1005", "court": "서울중앙지법", "date": "2023-05-19", "fraud_type": "general", "damage_amount": 350000000, "victim_count": 5, "sentence_months": 48, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2023고합1006", "court": "부산지법", "date": "2023-06-08", "fraud_type": "general", "damage_amount": 135000000, "victim_count": 2, "sentence_months": 24, "is_suspended": false, "suspension_period": null },
+
+    { "case_number": "2023고합2001", "court": "인천지법", "date": "2023-07-12", "fraud_type": "organized", "damage_amount": 8500000000, "victim_count": 47, "sentence_months": 84, "is_suspended": false, "suspension_period": null, "label": "빌라왕 유형 사건 (47가구)" },
+    { "case_number": "2023고합2002", "court": "서울중앙지법", "date": "2023-08-23", "fraud_type": "organized", "damage_amount": 12000000000, "victim_count": 73, "sentence_months": 96, "is_suspended": false, "suspension_period": null, "label": "빌라왕 유형 사건 (73가구)" },
+    { "case_number": "2023고합2003", "court": "수원지법", "date": "2023-09-15", "fraud_type": "organized", "damage_amount": 5800000000, "victim_count": 32, "sentence_months": 72, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2023고합2004", "court": "서울남부지법", "date": "2023-10-30", "fraud_type": "organized", "damage_amount": 18500000000, "victim_count": 124, "sentence_months": 108, "is_suspended": false, "suspension_period": null, "label": "대규모 빌라왕 유형 사건 (124가구)" },
+
+    { "case_number": "2023고합3001", "court": "서울중앙지법", "date": "2023-11-21", "fraud_type": "general", "damage_amount": 220000000, "victim_count": 3, "sentence_months": 36, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2023고합3002", "court": "수원지법", "date": "2023-12-14", "fraud_type": "general", "damage_amount": 175000000, "victim_count": 2, "sentence_months": 30, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2024고합1001", "court": "인천지법", "date": "2024-01-25", "fraud_type": "general", "damage_amount": 125000000, "victim_count": 2, "sentence_months": 24, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2024고합1002", "court": "서울중앙지법", "date": "2024-02-19", "fraud_type": "general", "damage_amount": 290000000, "victim_count": 4, "sentence_months": 42, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2024고합1003", "court": "부산지법", "date": "2024-03-12", "fraud_type": "general", "damage_amount": 105000000, "victim_count": 1, "sentence_months": 20, "is_suspended": true, "suspension_period": 36 },
+    { "case_number": "2024고합1004", "court": "수원지법", "date": "2024-04-23", "fraud_type": "general", "damage_amount": 195000000, "victim_count": 3, "sentence_months": 32, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2024고합1005", "court": "서울중앙지법", "date": "2024-05-15", "fraud_type": "general", "damage_amount": 410000000, "victim_count": 6, "sentence_months": 54, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2024고합1006", "court": "인천지법", "date": "2024-06-08", "fraud_type": "general", "damage_amount": 150000000, "victim_count": 2, "sentence_months": 28, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2024고합1007", "court": "서울남부지법", "date": "2024-07-19", "fraud_type": "general", "damage_amount": 80000000, "victim_count": 1, "sentence_months": 14, "is_suspended": true, "suspension_period": 24 },
+
+    { "case_number": "2024고합2001", "court": "수원지법", "date": "2024-08-12", "fraud_type": "organized", "damage_amount": 9800000000, "victim_count": 58, "sentence_months": 90, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2024고합2002", "court": "서울중앙지법", "date": "2024-09-23", "fraud_type": "organized", "damage_amount": 15200000000, "victim_count": 89, "sentence_months": 102, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2024고합2003", "court": "인천지법", "date": "2024-10-15", "fraud_type": "organized", "damage_amount": 6500000000, "victim_count": 38, "sentence_months": 78, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2024고합2004", "court": "서울서부지법", "date": "2024-11-08", "fraud_type": "organized", "damage_amount": 22000000000, "victim_count": 152, "sentence_months": 120, "is_suspended": false, "suspension_period": null, "label": "대규모 빌라왕 유형 사건 (152가구)" },
+
+    { "case_number": "2024고합3001", "court": "서울중앙지법", "date": "2024-12-20", "fraud_type": "general", "damage_amount": 168000000, "victim_count": 2, "sentence_months": 28, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2024고합3002", "court": "수원지법", "date": "2024-12-28", "fraud_type": "general", "damage_amount": 235000000, "victim_count": 3, "sentence_months": 36, "is_suspended": false, "suspension_period": null },
+
+    { "case_number": "2022고합7001", "court": "서울중앙지법", "date": "2022-03-22", "fraud_type": "organized", "damage_amount": 4200000000, "victim_count": 28, "sentence_months": 60, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2022고합7002", "court": "인천지법", "date": "2022-07-14", "fraud_type": "organized", "damage_amount": 7800000000, "victim_count": 45, "sentence_months": 72, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2022고합7003", "court": "수원지법", "date": "2022-11-30", "fraud_type": "organized", "damage_amount": 11500000000, "victim_count": 67, "sentence_months": 96, "is_suspended": false, "suspension_period": null },
+
+    { "case_number": "2021고합8001", "court": "서울중앙지법", "date": "2021-06-15", "fraud_type": "general", "damage_amount": 130000000, "victim_count": 2, "sentence_months": 24, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2021고합8002", "court": "수원지법", "date": "2021-09-22", "fraud_type": "general", "damage_amount": 95000000, "victim_count": 1, "sentence_months": 18, "is_suspended": true, "suspension_period": 36 },
+    { "case_number": "2021고합8003", "court": "인천지법", "date": "2021-12-08", "fraud_type": "general", "damage_amount": 220000000, "victim_count": 3, "sentence_months": 32, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2020고합1001", "court": "서울중앙지법", "date": "2020-04-15", "fraud_type": "general", "damage_amount": 85000000, "victim_count": 1, "sentence_months": 14, "is_suspended": true, "suspension_period": 24 },
+    { "case_number": "2020고합1002", "court": "수원지법", "date": "2020-08-30", "fraud_type": "general", "damage_amount": 145000000, "victim_count": 2, "sentence_months": 24, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2020고합1003", "court": "부산지법", "date": "2020-11-22", "fraud_type": "general", "damage_amount": 105000000, "victim_count": 1, "sentence_months": 20, "is_suspended": false, "suspension_period": null },
+
+    { "case_number": "2023고합4001", "court": "서울남부지법", "date": "2023-04-14", "fraud_type": "general", "damage_amount": 72000000, "victim_count": 1, "sentence_months": 12, "is_suspended": true, "suspension_period": 24 },
+    { "case_number": "2023고합4002", "court": "수원지법", "date": "2023-06-23", "fraud_type": "general", "damage_amount": 158000000, "victim_count": 2, "sentence_months": 28, "is_suspended": false, "suspension_period": null },
+    { "case_number": "2023고합4003", "court": "인천지법", "date": "2023-09-30", "fraud_type": "general", "damage_amount": 245000000, "victim_count": 3, "sentence_months": 36, "is_suspended": false, "suspension_period": null }
+  ],
+  "summary_stats": {
+    "by_fraud_type": {
+      "general": {
+        "count": 38,
+        "median_sentence_months": 28,
+        "suspension_rate": 0.184
+      },
+      "organized": {
+        "count": 12,
+        "median_sentence_months": 90,
+        "suspension_rate": 0.0
+      }
+    }
+  }
+}

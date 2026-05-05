@@ -1,0 +1,96 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "actigence-jeonse-explorer",
+  "version": "1.0.0",
+  "description": "전세사기 피해 사건의 유사 공개 판례·정부 통계 분포를 시각화하는 공익 데이터 분석 Plugin. 법률 자문 아님.",
+  "author": {
+    "name": "ACTIGENCE",
+    "email": "cio@actigence.ai",
+    "url": "https://actigence.ai"
+  },
+  "homepage": "https://actigence.ai/jeonse-explorer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yonghot/actigence-marketplace"
+  },
+  "keywords": [
+    "legal-data",
+    "public-data",
+    "compliance-safe",
+    "korean",
+    "jeonse",
+    "rental-fraud",
+    "tenant-protection",
+    "actigence"
+  ],
+  "categories": [
+    "Legal & Compliance",
+    "Public Data",
+    "Korean Services"
+  ],
+  "compliance": {
+    "disclaimer": "본 Plugin은 공개 판례·법령 통계 분석 도구이며, 법률 자문이나 사건 결과 예측이 아닙니다. ACTIGENCE에는 변호사가 소속되어 있지 않습니다.",
+    "compliance_doc": "./COMPLIANCE.md",
+    "operates_by_non_lawyers": true,
+    "data_sources_only_public": true,
+    "no_sentence_prediction": true,
+    "no_lawyer_matching": true,
+    "stateless": true
+  },
+  "skills": [
+    {
+      "name": "jeonse-fraud-analyzer",
+      "path": "./skills/jeonse-fraud-analyzer/SKILL.md",
+      "description": "전세사기 피해·임대차 분쟁 자연어 질의 시 유사 공개 통계 분포 자동 분석"
+    },
+    {
+      "name": "jeonse-law-summary",
+      "path": "./skills/jeonse-law-summary/SKILL.md",
+      "description": "전세사기특별법·사기죄 양형기준 등 법령·제도 정보 질의 시 공식 출처 기반 요약"
+    },
+    {
+      "name": "jeonse-document-extractor",
+      "path": "./skills/jeonse-document-extractor/SKILL.md",
+      "description": "임대차 계약서·등기부등본·경매 알림 PDF에서 객관적 변수 7개 자동 추출 (가해자 정보 마스킹)"
+    }
+  ],
+  "agents": [
+    {
+      "name": "compliance-guardrail",
+      "path": "./agents/compliance-guardrail.md",
+      "description": "단정 표현·변호사 추천·가해자 정보 처리를 차단하는 시스템 프롬프트 가드레일",
+      "invocation": "passive",
+      "priority": "highest"
+    }
+  ],
+  "commands": [
+    {
+      "name": "jeonse-help",
+      "path": "./commands/jeonse-help.md",
+      "description": "Plugin 사용 안내"
+    }
+  ],
+  "mcp_servers": [
+    {
+      "name": "jeonse-explorer-backend",
+      "transport": "stdio",
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/index-stdio.js"],
+      "tools": [
+        "analyze_jeonse_fraud_distribution",
+        "get_jeonse_fraud_law_summary"
+      ],
+      "note": "Cowork·Desktop·Code에서 로컬로 실행되는 stdio MCP 서버. 외부 인프라 없이 동작."
+    }
+  ],
+  "supported_environments": [
+    "claude-cowork",
+    "claude-desktop",
+    "claude-code",
+    "claude-ai"
+  ],
+  "min_claude_version": "4.6",
+  "languages": ["ko", "en"],
+  "primary_language": "ko"
+}

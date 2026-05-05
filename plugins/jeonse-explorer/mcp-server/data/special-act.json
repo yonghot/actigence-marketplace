@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "law_name": "전세사기피해자 지원 및 주거안정에 관한 특별법",
+    "short_name": "전세사기특별법",
+    "promulgation_date": "2023-05-26",
+    "effective_date": "2023-06-01",
+    "expiry_date": "2033-05-31",
+    "type": "한시법 (10년 시한)",
+    "ministry": "국토교통부",
+    "source": "국가법령정보센터",
+    "source_url": "https://www.law.go.kr/법령/전세사기피해자지원및주거안정에관한특별법",
+    "last_verified": "2025-12",
+    "license": "정부 공공저작물 자유이용 (KOGL Type 1)"
+  },
+  "articles": [
+    {
+      "article_number": "제1조",
+      "category": "law_overview",
+      "title": "목적",
+      "summary": "전세사기 피해자에게 긴급 주거지원·금융지원·법적 보호를 제공하여 주거 안정을 도모"
+    },
+    {
+      "article_number": "제2조",
+      "category": "law_overview",
+      "title": "정의",
+      "summary": "임대차계약, 보증금, 임차주택, 임대인 등 핵심 용어 정의"
+    },
+    {
+      "article_number": "제3조",
+      "category": "eligibility_requirements",
+      "title": "전세사기피해자등의 요건",
+      "summary": "피해자 인정 4가지 요건 명시",
+      "requirements": [
+        {
+          "number": 1,
+          "label": "권리관계 요건",
+          "content": "주택의 인도와 주민등록(전입신고)을 마치고 확정일자를 갖춘 경우. 임차권등기명령 또는 전세권 설정의 경우 포함."
+        },
+        {
+          "number": 2,
+          "label": "보증금 한도 요건",
+          "content": "임대차보증금이 5억원 이하 (시·도별 지역 사정에 따라 7억원까지 조정 가능)",
+          "regional_adjustments": {
+            "seoul": 700000000,
+            "gyeonggi": 600000000,
+            "incheon": 600000000,
+            "busan": 600000000,
+            "default": 500000000
+          }
+        },
+        {
+          "number": 3,
+          "label": "객관적 손실 요건",
+          "content": "임대인의 파산·회생, 경공매 절차 개시, 또는 집행권원 확보 등 다수의 임차인에게 보증금 미반환이 발생·예상되는 경우"
+        },
+        {
+          "number": 4,
+          "label": "이행 의도 의심 요건",
+          "content": "임대인이 보증금반환채무를 이행하지 않을 의도가 있다고 의심할 만한 상당한 이유가 있는 경우 (수사 개시, 기망, 다수 주택 취득, 이행능력 없는 자에게 소유권 양도 등)"
+        }
+      ]
+    },
+    {
+      "article_number": "제4조",
+      "category": "procedure_guide",
+      "title": "전세사기피해자등 결정 절차",
+      "summary": "피해자가 거주 시·도청 또는 국토교통부에 결정신청 → 위원회 심의 → 결정 통지 (60일 이내)"
+    },
+    {
+      "article_number": "제5조",
+      "category": "procedure_guide",
+      "title": "전세사기피해자지원위원회",
+      "summary": "국토교통부 산하 위원회가 피해자 결정을 심의·의결"
+    },
+    {
+      "article_number": "제20조",
+      "category": "recovery_options",
+      "title": "우선매수권",
+      "summary": "특별법 인정 피해자는 임차주택 경매 시 LH 등 공공기관보다 먼저 매수할 수 있는 권리"
+    },
+    {
+      "article_number": "제25조",
+      "category": "recovery_options",
+      "title": "주택의 매입",
+      "summary": "LH 등 공공기관이 피해주택을 직접 매입하여 피해자에게 임대 (2025.12 기준 누적 4,898가구 매입)"
+    },
+    {
+      "article_number": "제30조",
+      "category": "recovery_options",
+      "title": "경매·공매의 유예 등",
+      "summary": "피해자 신청 시 경공매 절차 일정 기간 유예 가능"
+    }
+  ],
+  "related_laws": [
+    {
+      "name": "주택임대차보호법",
+      "url": "https://www.law.go.kr/법령/주택임대차보호법",
+      "relevance": "우선변제권·소액임차인 최우선변제 규정"
+    },
+    {
+      "name": "민사집행법",
+      "url": "https://www.law.go.kr/법령/민사집행법",
+      "relevance": "경매 절차 일반"
+    },
+    {
+      "name": "특정경제범죄 가중처벌 등에 관한 법률",
+      "url": "https://www.law.go.kr/법령/특정경제범죄가중처벌등에관한법률",
+      "relevance": "이득액 5억원 이상 사기죄 가중처벌"
+    }
+  ]
+}

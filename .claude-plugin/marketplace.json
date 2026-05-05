@@ -1,0 +1,54 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "actigence",
+  "description": "ACTIGENCE 공익 데이터 분석 plugin marketplace — 한국 사회 문제 도메인(전세사기·보이스피싱·기획부동산 등)에 대한 비변호사 운영 컴플라이언스 안전 도구. 변호사법 109조·34조 회피 설계를 코드 레벨에서 강제.",
+  "owner": {
+    "name": "ACTIGENCE",
+    "email": "cio@actigence.ai",
+    "url": "https://actigence.ai"
+  },
+  "homepage": "https://actigence.ai/marketplace",
+  "metadata": {
+    "verified_legal_counsel": true,
+    "operates_by_non_lawyers": true,
+    "compliance_framework": "변호사법 109조·34조 회피 7원칙",
+    "data_sources_only_public": true,
+    "ko_actigence_marketplace": true
+  },
+  "plugins": [
+    {
+      "name": "jeonse-explorer",
+      "description": "전세사기 피해 사건의 유사 공개 판례·정부 통계 분포를 시각화하는 공익 데이터 분석 plugin. 법률 자문 아님.",
+      "version": "1.0.0",
+      "category": "legal-data",
+      "source": "./plugins/jeonse-explorer",
+      "homepage": "https://actigence.ai/jeonse-explorer",
+      "author": {
+        "name": "ACTIGENCE",
+        "email": "cio@actigence.ai",
+        "url": "https://actigence.ai"
+      },
+      "license": "MIT",
+      "tags": [
+        "compliance-safe",
+        "korean",
+        "public-data",
+        "tenant-protection",
+        "jeonse-fraud",
+        "non-lawyer-operated",
+        "actigence"
+      ],
+      "compliance_notes": {
+        "operator_type": "non-lawyer data analysis company",
+        "not_provided": [
+          "Legal advice",
+          "Sentence prediction",
+          "Lawyer matching/recommendation",
+          "Legal document drafting"
+        ],
+        "compliance_doc": "./plugins/jeonse-explorer/COMPLIANCE.md",
+        "external_audit_required_before_v1.0_public_release": true
+      }
+    }
+  ]
+}
