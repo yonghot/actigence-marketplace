@@ -88,9 +88,12 @@ jobs:
       - name: list_tools smoke test
         working-directory: plugins/jeonse-explorer/mcp-server
         run: |
-          RESULT=$(echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | timeout 5 node dist/index-stdio.js 2>/dev/null | grep -o '"name":"analyze_jeonse_fraud_distribution"' | head -1)
+          INIT='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"ci-smoke","version":"1.0"}}}'
+          INITIALIZED='{"jsonrpc":"2.0","method":"notifications/initialized"}'
+          LIST='{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
+          RESULT=$(printf '%s\n%s\n%s\n' "$INIT" "$INITIALIZED" "$LIST" | timeout 5 node dist/index-stdio.js 2>/dev/null | grep -o '"name":"analyze_jeonse_fraud_distribution"' | head -1)
           if [ -z "$RESULT" ]; then
-            echo "❌ MCP 서버 list_tools 실패"
+            echo "❌ MCP 서버 list_tools 실패 — analyze_jeonse_fraud_distribution 도구 응답 없음"
             exit 1
           fi
           echo "✅ MCP 서버 list_tools 정상 응답"
@@ -98,10 +101,15 @@ jobs:
       - name: PII guardrail smoke test
         working-directory: plugins/jeonse-explorer/mcp-server
         run: |
-          PAYLOAD='{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"analyze_jeonse_fraud_distribution","arguments":{"deposit_range":"100m_to_300m","priority_right":"full_protection","landlord_property_count":"one","auction_status":"in_progress","investigation_status":"investigating","victim_count":"self_only","region":"seoul","landlord_phone":"010-1234-5678"}}}'
-          RESULT=$(echo "$PAYLOAD" | timeout 5 node dist/index-stdio.js 2>/dev/null | grep -o '"error":"pii_detected"')
-          if [ -z "$RESULT" ]; then
-            echo "❌ PII 가드레일 동작 실패 — 가해자 휴대폰 패턴이 차단되지 않음"
+          INIT='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"ci-smoke","version":"1.0"}}}'
+          INITIALIZED='{"jsonrpc":"2.0","method":"notifications/initialized"}'
+          CALL='{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"analyze_jeonse_fraud_distribution","arguments":{"deposit_range":"100m_to_300m","priority_right":"full_protection","landlord_property_count":"one","auction_status":"in_progress","investigation_status":"investigating","victim_count":"self_only","region":"seoul","landlord_phone":"010-1234-5678"}}}'
+          OUTPUT=$(printf '%s\n%s\n%s\n' "$INIT" "$INITIALIZED" "$CALL" | timeout 5 node dist/index-stdio.js 2>/dev/null)
+          if echo "$OUTPUT" | grep -q 'pii_detected' && echo "$OUTPUT" | grep -q '"isError":true'; then
+            echo "✅ PII 가드레일 정상 동작 (가해자 식별 정보 input 차단됨, isError=true)"
+          else
+            echo "❌ PII 가드레일 동작 실패 — pii_detected + isError 응답 미검출"
+            echo "--- received output ---"
+            echo "$OUTPUT" | head -20
             exit 1
           fi
-          echo "✅ PII 가드레일 정상 동작 (가해자 식별 정보 input 차단됨)"
