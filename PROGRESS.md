@@ -18,10 +18,10 @@
 | Stage | 내용 | 수행 주체 | 상태 |
 |---|---|---|---|
 | 0 | 사용자 입력 확인 (경로/owner/일정) | Claude Code | ✅ 완료 |
-| 1 | GitHub 공개 + CI 통과 | Claude Code | ⏳ 진행 |
-| 2 | 베타 자료 준비 | Claude Code (자료) + 인간 (실행) | ⏳ 대기 |
-| 3 | 변호사 자문 의뢰서 + 시연 콘티 | Claude Code (자료) + 인간 (자문·녹화) | ⏳ 대기 |
-| 4 | 등록 신청서 채워넣기 | Claude Code (작성) + 인간 (제출) | ⏳ 대기 |
+| 1 | GitHub 공개 + CI 통과 | Claude Code | ✅ 완료 |
+| 2 | 베타 자료 준비 | Claude Code (자료) + 인간 (실행) | ✅ 자료 작성 완료 / ⏳ 인간 실행 대기 |
+| 3 | 변호사 자문 의뢰서 + 시연 콘티 | Claude Code (자료) + 인간 (자문·녹화) | ✅ 자료 작성 완료 / ⏳ 인간 실행 대기 |
+| 4 | 등록 신청서 채워넣기 | Claude Code (작성) + 인간 (제출) | ✅ 작성 완료 / ⏳ 인간 입력·제출 대기 |
 | 5 | Community 디렉토리 등재 | Anthropic 검수 | ⏳ 후속 |
 | 6 | Verified 배지 신청 | 인간 (CPN 채널) | ⏳ 후속 |
 | 7 | claude-plugins-official 등재 | Anthropic 권유 | ⏳ 후속 |
@@ -49,10 +49,14 @@
 ## Stage 1: GitHub 공개 + CI 통과
 
 - 시작: 2026-05-06
-- 완료: -
-- 산출물: GitHub repo URL, CI 배지 URL
-- 상태: ⏳ 진행
-- 다음 인간 액션: 미정 (Claude Code가 자율 수행 중. `gh auth` 미인증 시 `gh auth login` 안내 예정)
+- 완료: 2026-05-06
+- 산출물:
+  - GitHub repo: https://github.com/yonghot/actigence-marketplace
+  - CI 배지 URL: `https://github.com/yonghot/actigence-marketplace/actions/workflows/compliance.yml/badge.svg`
+  - 첫 commit: `8e86864` (Initial commit)
+  - 두 번째 commit: `29493fc` (fix(ci): MCP smoke tests must initialize before tools/call)
+- 상태: ✅ 완료
+- 다음 인간 액션: 없음
 
 ### 검증 체크리스트
 
@@ -60,50 +64,137 @@
 - [x] `npm install` + tsc(postinstall) 성공, `dist/index-stdio.js` 등 13개 산출물 확인
 - [x] MCP `tools/list` smoke test → `analyze_jeonse_fraud_distribution` + `get_jeonse_fraud_law_summary` 도구 응답, enum-only inputSchema 확인
 - [x] PII 가드레일 smoke test → `010-1234-5678` 입력 시 `pii_detected` 응답 (severity: critical, pattern: mobile_phone)
-- [ ] GitHub repo 공개 push (진행 중)
-- [ ] GitHub Actions 3-job (compliance + build + smoke) 통과
+- [x] GitHub repo 공개 push (gh auth refresh로 workflow scope 추가 후 성공)
+- [x] GitHub Actions 3-job 통과 — run 25388551112 (`success`)
+  - ✅ Compliance Self-Check (변호사법 회피 7원칙)
+  - ✅ Build jeonse-explorer plugin (MCP server) — type check + tsc + dist 검증
+  - ✅ Smoke test MCP server (stdio mode) — list_tools + PII guardrail (initialize lifecycle 준수)
+
+### 발견된 이슈와 수정 (Stage 1 진행 중)
+
+1. **GitHub 조직명 충돌**: `actigence` 조직은 캐나다 Actigence Solutions Inc.가 점유. → `yonghot/actigence-marketplace`로 owner 결정, 모든 repo URL 참조 일괄 치환
+2. **gh CLI 토큰 scope 부족**: 첫 push 시 `workflow` scope 누락으로 거부. → `gh auth refresh -h github.com -s workflow` 백그라운드 실행 + device code 캡처(`B21C-5D78`)로 사용자가 브라우저에서 승인. 토큰 갱신 자동 감지 후 push 재시도 성공
+3. **CI smoke test의 MCP 프로토콜 lifecycle 누락**: 첫 CI 실행에서 PII guardrail step이 `initialize` 핸드셰이크 없이 `tools/call`을 직접 보내 SDK가 protocol error로 거부, `pii_detected`가 트리거되지 않음. → `INIT → INITIALIZED → 실제 메서드` 순서로 워크플로 수정. 두 번째 CI 실행에서 모두 PASS
+
+### Node.js 20 deprecation (참고)
+
+GitHub Actions가 Node.js 20 → 24 전환 일정 안내. 2026-09-16 이후 Node.js 20 사용 불가. 본 워크플로는 `node-version: '20'` 사용 중이므로 향후 v1.0.1 또는 별도 PR에서 `'24'`로 업데이트 권장 (Phase 2 기능 추가 시 함께 처리).
 
 ---
 
 ## Stage 2: 베타 배포 자료 준비
 
-- 시작: -
-- 완료: -
-- 산출물: `outreach/beta-recruitment.md`
-- 상태: ⏳ 대기
+- 시작: 2026-05-06
+- 완료: 2026-05-06 (자료 작성 부분)
+- 산출물: [outreach/beta-recruitment.md](outreach/beta-recruitment.md)
+- 상태: ✅ 자료 작성 완료 / ⏳ 인간 실행 대기
+- 산출물 구성:
+  - 동행 커뮤니티 게시용 모집 메시지 (전세사기 plugin 안내, 변호사법 회피 7원칙 명시, "법률 자문 아님" 강조)
+  - 베타 인스톨 가이드 (`/plugin marketplace add yonghot/actigence-marketplace` + `/plugin install jeonse-explorer@actigence`)
+  - 3가지 테스트 시나리오 (90초 단일·60초 비교·15초 법령)
+  - 정상 동작 5개 / 버그 동작 5개 체크리스트
+  - 5문항 피드백 설문 (5점 척도 + 1줄 코멘트 + 자유 의견 4개 + 면접 동의)
+  - 베타 결과 정리 양식 (Stage 4 신청서로 이관용)
+  - 컴플라이언스 안내 (참여자 사전 공지)
 - 다음 인간 액션:
-  1. 동행 커뮤니티(250명)에 모집 메시지 게시
+  1. 동행 커뮤니티(250명)에 모집 메시지 게시 (베타 시작일 미정)
   2. 5~10명 베타 테스터 모집
   3. 1~2주 베타 진행
-  4. 5문항 피드백 수집 후 Stage 3으로 이행
+  4. 5문항 피드백 수집 후 Stage 4 신청서 8.2 항목에 결과 정리
 
 ---
 
 ## Stage 3: 변호사 자문 의뢰서 + 시연 영상 콘티
 
-- 시작: -
-- 완료: -
-- 산출물:
-  - `outreach/legal-counsel-brief.md` (24개 자문 질문)
-  - `outreach/demo-video-storyboards.md` (시나리오 A 90초 / B 60초 / C 120초)
-- 상태: ⏳ 대기
+### Stage 3.1 — 변호사 자문 의뢰서
+
+- 시작: 2026-05-06
+- 완료: 2026-05-06 (자료 작성 부분)
+- 산출물: [outreach/legal-counsel-brief.md](outreach/legal-counsel-brief.md)
+- 상태: ✅ 자료 작성 완료 / ⏳ 인간 실행 대기
+- 산출물 구성:
+  - 자문 의뢰 배경 (ACTIGENCE 소개 + 회피 7원칙)
+  - 변호사 섭외 기준 (IT 법률·플랫폼·AI 컴플라이언스 우선)
+  - 자문료 견적 가이드 (단발 50~80만원 / 의견서 200~300만원 ⭐ 권장 / 프로젝트 500만원~)
+  - 자문 질문 24개 (B 단계 17개 + C-1 단계 3개 + C-2 단계 4개 ⭐ 핵심)
+    - 핵심 4개 (21~24): PDF 자동 추출, Cowork 자동화, 프롬프트 인젝션 우회 책임, Anthropic 검수의 회피 근거 가능성
+  - 의견서 형식 (PDF/docx, 도장·서명, 비공개 전체본 + 공개 요약본)
+  - 활용 계획 (외부 공개·내부 보관·언론 인용 구분)
+  - 회신 양식
 - 다음 인간 액션:
-  1. 자문 변호사 1인 섭외 + 의뢰서 송부
-  2. 의견서 수령 (2주 이내)
-  3. 시연 영상 3편 녹화·편집·YouTube 업로드
+  1. 자문 변호사 1인 섭외 (IT 전문 로펌 또는 단독 변호사)
+  2. 의뢰서 송부 (사업자등록번호 등 [확인필요] 항목 채워서)
+  3. 의견서 수령 (2주 이내 희망)
+  4. 공개 요약본을 Stage 4 신청서 7.1에 첨부
+
+### Stage 3.2 — 시연 영상 콘티 3편
+
+- 시작: 2026-05-06
+- 완료: 2026-05-06 (자료 작성 부분)
+- 산출물: [outreach/demo-video-storyboards.md](outreach/demo-video-storyboards.md)
+- 상태: ✅ 자료 작성 완료 / ⏳ 인간 실행 대기
+- 산출물 구성:
+  - 영상 공통 사양 (1920×1080, 30~60fps, 한국어 내레이션 + 영어 자막, 인트로 3s + 아웃트로 5s, ACTIGENCE 워터마크)
+  - 촬영 시 회피 7원칙 주의사항 5종
+  - 시나리오 A 90초 콘티 — 12샷 (단일 PDF 자동 분석 → PII 거부 시연)
+  - 시나리오 B 60초 콘티 — 8샷 (보증금 1억 vs 2억 비교 시뮬레이션)
+  - 시나리오 C 120초 콘티 — 15샷 (시민단체 10건 일괄 분석 + B2B SaaS 가능성 + 프롬프트 인젝션 거부 시연)
+  - 영상 제작 워크플로 (사전 준비·녹화·편집·업로드 시간표)
+  - 영상 제목·설명 템플릿
+- 다음 인간 액션:
+  1. 시연용 가짜 PDF 10건 준비 (가해자 이름·주소·전화는 가짜이며 화면 마스킹)
+  2. 영상 3편 녹화 (본인 또는 외주, OBS Studio 권장)
+  3. DaVinci Resolve로 편집·자막 합성
+  4. YouTube 업로드 → 4개 URL을 Stage 4 신청서 8.1에 기재
 
 ---
 
 ## Stage 4: Anthropic 디렉토리 등록 신청서 채워넣기
 
-- 시작: -
-- 완료: -
-- 산출물: `outreach/submission-form-filled.md`
-- 상태: ⏳ 대기
+- 시작: 2026-05-06
+- 완료: 2026-05-06 (자료 작성 부분)
+- 산출물: [outreach/submission-form-filled.md](outreach/submission-form-filled.md)
+- 상태: ✅ 작성 완료 / ⏳ 인간 입력·제출 대기
+- 산출물 구성:
+  - 진행 체크리스트 (제출 전 확인 8항목)
+  - 1~6 자동 채움 (Plugin 정보, GitHub 저장소, 운영 주체 일부, 설명·카테고리·태그)
+  - 7 컴플라이언스 자료 (CI 검증 결과 + 데이터 출처 + Stateless 정책 자동 채움 / 자문 변호사 정보는 [인간 입력 필요])
+  - 8 시연 자료 ([인간 입력 필요] 영상 URL 4개 + 베타 결과 7항목)
+  - 9~11 검수 후 계획·협조·동의 (자동)
+  - 12 신청자 정보 (서명 + 신청일 [인간 입력 필요])
+  - 13 첨부 5종 안내 (자문 의견서·영상 URL·베타 결과·사업자등록증·CI 스크린샷)
+  - 14 인간 작업 가이드 ([인간 입력 필요] 13개 위치 일괄 체크리스트)
+- **인간 입력 필요 항목 13개 위치** (제출 직전 일괄 채움):
+  - 운영 주체 4개: 법인 형태 / 사업자등록번호 / CPN 단계 / CCAF 인증
+  - 자문 2개: 변호사 이름·소속 / 자문 시점
+  - 시연 영상 4개: 시나리오 A·B·C URL + 재생목록 URL
+  - 베타 결과 7개: 테스터 수·기간·응답률·만족도(5문항 평균 + 종합) + 위반 신고·피드백·이슈 처리
+  - 시민단체 파일럿 1개: 진행 여부
+  - 신청자 2개: 신청일 + 서명
 - 다음 인간 액션:
-  1. 채워진 신청서 최종 검토
-  2. `platform.claude.com/plugins/submit` 또는 `clau.de/plugin-directory-submission`에 제출
-  3. 첨부 5종 송부 (자문 의견서·영상 URL·베타 결과·사업자등록증·CI 통과 스크린샷)
+  1. 채워진 신청서 [인간 입력 필요] 13개 위치 채움
+  2. 첨부 파일 5종 PDF 준비
+  3. `platform.claude.com/plugins/submit` 또는 `clau.de/plugin-directory-submission`에 제출
+  4. 신청 직후 cio@actigence.ai로 검수 담당자 회신 채널 확인 (24시간 이내 회신 미수신 시 추가 연락)
+
+---
+
+## 다음 인간 액션 종합 (Stage 1~4 자율 작업 완료 후)
+
+### 즉시 가능 (병렬 진행 권장)
+1. **베타 모집** ([outreach/beta-recruitment.md](outreach/beta-recruitment.md)) — 동행 커뮤니티 게시 → 5~10명 모집 → 1~2주 진행
+2. **변호사 섭외** ([outreach/legal-counsel-brief.md](outreach/legal-counsel-brief.md)) — IT 전문 변호사 1인 섭외 → 의뢰서 송부 → 2주 이내 의견서 수령
+
+### 베타·자문 결과 수렴 후
+3. **시연 영상 녹화** ([outreach/demo-video-storyboards.md](outreach/demo-video-storyboards.md)) — 가짜 PDF 10건 준비 → 3편 녹화·편집 → YouTube 업로드
+4. **신청서 채움** ([outreach/submission-form-filled.md](outreach/submission-form-filled.md)) — [인간 입력 필요] 13개 위치 채움
+5. **신청 제출** — 첨부 5종과 함께 Anthropic Plugin Directory 신청 채널로 송부
+
+### 후속 세션에서 다룰 단계 (Stage 5~8)
+- Anthropic 검수 모니터링 (1~4주)
+- Verified 배지 신청 (community 등재 후 3개월 운영 후)
+- claude-plugins-official 등재 (Anthropic 권유 시)
+- Phase 2 plugin 추가 (보이스피싱·기획부동산·임금체불·중고거래 사기)
 
 ---
 
